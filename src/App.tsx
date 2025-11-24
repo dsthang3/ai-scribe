@@ -32,7 +32,7 @@ const App: React.FC = () => {
 
     try {
       // Step 1: Generate Outline
-      setProgress(p => ({ ...p, message: 'Structuring the narrative arc...' }));
+      setProgress((p: GenerationProgress) => ({ ...p, message: 'Structuring the narrative arc...' }));
       const outline = await generateBookOutline(topic);
       
       const emptyChapters: Chapter[] = outline.chapters.map((c, i) => ({

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Book } from '../types';
-import { Download, ChevronLeft, BookOpen, Quote } from 'lucide-react';
+import { Download, ChevronLeft, Quote } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { generatePDF } from '../utils/pdfGenerator';
 

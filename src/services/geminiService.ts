@@ -1,7 +1,7 @@
-import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { Chapter } from "../types";
+import { GoogleGenAI, Type, type Schema } from "@google/genai";
 
 // Initialize the client
+// Use process.env.API_KEY as per coding guidelines
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const OUTLINE_MODEL = "gemini-2.5-flash";
