@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type, type Schema } from "@google/genai";
 
-// Initialize the client
-// Use process.env.API_KEY as per coding guidelines
+// The vite.config.ts we created will replace process.env.API_KEY with your Vercel key.
+// If you are running locally without Vercel, make sure you have a .env file or replace this string.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const OUTLINE_MODEL = "gemini-2.5-flash";
@@ -79,10 +79,9 @@ export const generateChapterContent = async (
     
     Guidelines:
     - Write approximately 300-400 words.
-    - Use Markdown formatting (paragraphs, maybe a list if relevant, bolding for emphasis).
-    - Do NOT include the Chapter Title at the very top (it will be added by the renderer).
-    - Be engaging, informative, and professional.
-    - Focus strictly on the content of this chapter.
+    - Use Markdown formatting.
+    - Do NOT include the Chapter Title at the top.
+    - Focus strictly on the content.
   `;
 
   try {
@@ -97,7 +96,7 @@ export const generateChapterContent = async (
     return response.text || "Content generation failed.";
   } catch (error) {
     console.error(`Error generating chapter ${chapterIndex}:`, error);
-    return "An error occurred while writing this chapter. Please try again.";
+    return "An error occurred while writing this chapter.";
   }
 };
 
@@ -128,11 +127,11 @@ export const generateImage = async (prompt: string, aspectRatio: "1:1" | "3:4" |
 };
 
 export const generateBookCover = async (title: string, topic: string): Promise<string | undefined> => {
-  const prompt = `A cinematic, high-quality, abstract or symbolic book cover art for a book titled "${title}" about "${topic}". Professional design, evocative, no text on image, 4k resolution, aesthetically pleasing.`;
+  const prompt = `A cinematic book cover for "${title}" about "${topic}". High quality, 4k, no text.`;
   return generateImage(prompt, "3:4");
 };
 
 export const generateChapterIllustration = async (chapterTitle: string, topic: string): Promise<string | undefined> => {
-  const prompt = `A cinematic, high-quality, detailed illustration for a book chapter titled "${chapterTitle}" in a book about "${topic}". Visual storytelling, no text, atmospheric, wide shot.`;
+  const prompt = `Cinematic illustration for chapter "${chapterTitle}" in book about "${topic}". detailed, atmospheric, wide shot.`;
   return generateImage(prompt, "16:9");
 };

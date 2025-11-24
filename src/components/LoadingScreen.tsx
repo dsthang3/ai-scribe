@@ -1,5 +1,5 @@
 import React from 'react';
-import { GenerationProgress, GenerationStatus } from '../types';
+import { type GenerationProgress, GenerationStatus } from '../types';
 import { PenTool, CheckCircle2, Loader2, Book } from 'lucide-react';
 
 interface LoadingScreenProps {
@@ -11,8 +11,6 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress }) => {
 
   return (
     <div className="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-xl border border-slate-100 p-8 text-center animate-in fade-in zoom-in-95 duration-500">
-      
-      {/* Dynamic Icon */}
       <div className="mx-auto w-20 h-20 rounded-full bg-indigo-50 flex items-center justify-center mb-6 relative">
          {progress.status === GenerationStatus.GENERATING_OUTLINE && (
              <Book className="w-10 h-10 text-indigo-600 animate-pulse" />
@@ -34,7 +32,6 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress }) => {
         {progress.message}
       </p>
 
-      {/* Progress Bar */}
       <div className="relative h-3 w-full bg-slate-100 rounded-full overflow-hidden mb-4">
         <div 
           className="absolute top-0 left-0 h-full bg-indigo-600 transition-all duration-500 ease-out rounded-full"

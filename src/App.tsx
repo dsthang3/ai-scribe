@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { generateBookOutline, generateChapterContent, generateBookCover, generateChapterIllustration } from './services/geminiService';
 import { saveBook } from './services/storageService';
-import { Book, Chapter, GenerationProgress, GenerationStatus } from './types';
+import { type Book, type Chapter, type GenerationProgress, GenerationStatus } from './types';
 import { InputForm } from './components/InputForm';
 import { LoadingScreen } from './components/LoadingScreen';
 import { BookViewer } from './components/BookViewer';
@@ -26,13 +26,12 @@ const App: React.FC = () => {
     setProgress({
       status: GenerationStatus.GENERATING_OUTLINE,
       currentStep: 1,
-      totalSteps: 10, // Approximate steps: 1 Outline + 1 Cover + 4 * (1 Text + 1 Image)
+      totalSteps: 10,
       message: 'Consulting the muse...',
     });
 
     try {
-      // Step 1: Generate Outline
-      setProgress((p: GenerationProgress) => ({ ...p, message: 'Structuring the narrative arc...' }));
+      setProgress(p => ({ ...p, message: 'Structuring the narrative arc...' }));
       const outline = await generateBookOutline(topic);
       
       const emptyChapters: Chapter[] = outline.chapters.map((c, i) => ({
@@ -41,7 +40,6 @@ const App: React.FC = () => {
         content: '',
       }));
 
-      // Step 2: Generate Cover Art
       setProgress({
         status: GenerationStatus.GENERATING_OUTLINE,
         currentStep: 2,
@@ -50,16 +48,13 @@ const App: React.FC = () => {
       });
       const coverImage = await generateBookCover(outline.bookTitle, topic);
 
-      // Step 3: Generate Content & Illustrations
       setStatus(GenerationStatus.GENERATING_CONTENT);
       const generatedChapters: Chapter[] = [];
       const totalChapters = emptyChapters.length;
       
-      // We will generate them one by one to update progress bar accurately
       for (let i = 0; i < totalChapters; i++) {
         const ch = emptyChapters[i];
         
-        // Text
         setProgress({
           status: GenerationStatus.GENERATING_CONTENT,
           currentStep: 2 + (i * 2) + 1,
@@ -68,7 +63,6 @@ const App: React.FC = () => {
         });
         const content = await generateChapterContent(outline.bookTitle, ch.title, i, topic);
 
-        // Image
         setProgress({
           status: GenerationStatus.GENERATING_CONTENT,
           currentStep: 2 + (i * 2) + 2,
@@ -88,7 +82,6 @@ const App: React.FC = () => {
         createdAt: new Date(),
       };
 
-      // Save to IndexedDB
       await saveBook(fullBook);
 
       setBook(fullBook);
@@ -114,8 +107,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 relative selection:bg-indigo-100 selection:text-indigo-900">
-      
-      {/* Background Decor */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] bg-indigo-200/20 rounded-full blur-3xl"></div>
           <div className="absolute top-[10%] -right-[10%] w-[40%] h-[40%] bg-purple-200/20 rounded-full blur-3xl"></div>
@@ -123,7 +114,6 @@ const App: React.FC = () => {
 
       <main className="relative z-10 container mx-auto px-4 py-8 md:py-16 min-h-screen flex flex-col items-center justify-center">
         
-        {/* State: Idle / Form */}
         {status === GenerationStatus.IDLE && (
           <InputForm 
             onSubmit={handleGenerate} 
@@ -132,12 +122,10 @@ const App: React.FC = () => {
           />
         )}
 
-        {/* State: Loading */}
         {(status === GenerationStatus.GENERATING_OUTLINE || status === GenerationStatus.GENERATING_CONTENT) && (
           <LoadingScreen progress={progress} />
         )}
 
-        {/* State: Error */}
         {status === GenerationStatus.ERROR && (
           <div className="text-center space-y-4 max-w-md animate-in fade-in zoom-in-95">
              <div className="mx-auto w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center">
@@ -154,7 +142,6 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* State: Completed / Reader */}
         {status === GenerationStatus.COMPLETED && book && (
           <BookViewer book={book} onReset={reset} />
         )}
@@ -167,7 +154,6 @@ const App: React.FC = () => {
         onSelectBook={handleSelectHistory} 
       />
 
-      {/* Footer */}
       <footer className="absolute bottom-4 left-0 right-0 text-center text-slate-400 text-xs pointer-events-none">
         <p>&copy; {new Date().getFullYear()} AI Scribe.</p>
       </footer>

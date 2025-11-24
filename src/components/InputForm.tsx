@@ -61,9 +61,7 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, onOpenHistory, i
         </div>
       </form>
 
-      {/* Action Bar */}
       <div className="flex flex-col items-center gap-6">
-        {/* Example chips */}
         <div className="flex flex-wrap justify-center gap-2 text-sm text-slate-500">
             <span>Try:</span>
             {['History of Coffee', 'Mindfulness for Busy Parents', 'Future of AI'].map((ex) => (
@@ -78,7 +76,6 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, onOpenHistory, i
             ))}
         </div>
 
-        {/* History Button */}
         <button 
             onClick={onOpenHistory}
             disabled={isGenerating}

@@ -1,5 +1,5 @@
 import { jsPDF } from "jspdf";
-import { Book, Chapter } from "../types";
+import type { Book, Chapter } from "../types";
 
 export const generatePDF = (book: Book): void => {
   const doc = new jsPDF();
@@ -20,7 +20,7 @@ export const generatePDF = (book: Book): void => {
           cursorY = 40 + imgHeight + 20;
       } catch (e) {
           console.error("Failed to add cover image to PDF", e);
-          cursorY = 80; // Fallback position if image fails
+          cursorY = 80;
       }
   } else {
       cursorY = pageHeight / 3;

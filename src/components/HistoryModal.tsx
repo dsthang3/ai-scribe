@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Book } from '../types';
+import type { Book } from '../types';
 import { getRecentBooks, deleteBook } from '../services/storageService';
 import { X, Clock, Trash2, ChevronRight, Calendar } from 'lucide-react';
 
@@ -39,8 +39,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col animate-in zoom-in-95 duration-300">
-        
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-100">
           <div className="flex items-center gap-2">
             <Clock className="w-5 h-5 text-indigo-600" />
@@ -54,7 +52,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
           </button>
         </div>
 
-        {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 bg-slate-50">
           {isLoading ? (
             <div className="flex justify-center py-12">
@@ -73,7 +70,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
                   onClick={() => onSelectBook(book)}
                   className="group flex items-center gap-4 bg-white p-4 rounded-lg border border-slate-200 hover:border-indigo-300 hover:shadow-md transition-all cursor-pointer"
                 >
-                  {/* Thumbnail / Icon */}
                   <div className="w-16 h-20 bg-slate-100 rounded flex-shrink-0 overflow-hidden border border-slate-100 relative">
                      {book.coverImage ? (
                         <img src={book.coverImage} alt="Cover" className="w-full h-full object-cover" />
@@ -84,7 +80,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
                      )}
                   </div>
 
-                  {/* Info */}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-serif font-bold text-slate-800 truncate group-hover:text-indigo-600 transition-colors">
                       {book.title}
@@ -98,7 +93,6 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({ isOpen, onClose, onS
                     </div>
                   </div>
 
-                  {/* Actions */}
                   <div className="flex items-center gap-2">
                     <button 
                       onClick={(e) => handleDelete(e, book)}

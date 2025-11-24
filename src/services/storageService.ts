@@ -1,4 +1,4 @@
-import { Book } from '../types';
+import type { Book } from '../types';
 
 const DB_NAME = 'AIScribeDB';
 const STORE_NAME = 'books';

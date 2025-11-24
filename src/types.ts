@@ -1,14 +1,16 @@
-// Declare process to prevent TypeScript errors in the browser environment
-declare var process: {
-  env: {
-    API_KEY: string;
-  };
-};
+// This tells TypeScript that process.env.API_KEY exists, stopping errors.
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      API_KEY: string;
+    }
+  }
+}
 
 export interface Chapter {
   id: string;
   title: string;
-  content: string; // Markdown or text
+  content: string; // Markdown
   illustration?: string; // Base64 string
 }
 

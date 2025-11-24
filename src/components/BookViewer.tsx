@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Book } from '../types';
+import type { Book } from '../types';
 import { Download, ChevronLeft, Quote } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { generatePDF } from '../utils/pdfGenerator';
@@ -14,8 +14,6 @@ export const BookViewer: React.FC<BookViewerProps> = ({ book, onReset }) => {
 
   return (
     <div className="flex flex-col h-[85vh] w-full max-w-6xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700 border border-slate-200">
-      
-      {/* Header / Toolbar */}
       <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-b border-slate-200">
         <div className="flex items-center gap-4">
           <button 
@@ -42,12 +40,8 @@ export const BookViewer: React.FC<BookViewerProps> = ({ book, onReset }) => {
         </button>
       </div>
 
-      {/* Main Content Area */}
       <div className="flex flex-1 overflow-hidden">
-        
-        {/* Sidebar (TOC) - Hidden on mobile */}
         <div className="hidden md:flex flex-col w-64 bg-slate-50 border-r border-slate-200 overflow-y-auto">
-          {/* Cover Preview in Sidebar */}
           {book.coverImage && (
             <div className="p-5 pb-0">
                <div className="aspect-[3/4] w-full bg-slate-200 rounded-md overflow-hidden shadow-sm mb-4">
@@ -77,11 +71,8 @@ export const BookViewer: React.FC<BookViewerProps> = ({ book, onReset }) => {
           </div>
         </div>
 
-        {/* Reader View */}
         <div className="flex-1 overflow-y-auto bg-[#f8f9fa] p-4 md:p-8 lg:p-12 book-scroll relative">
             <div className="max-w-3xl mx-auto bg-white shadow-sm border border-slate-100 min-h-full p-8 md:p-16 rounded-sm">
-                
-                {/* Chapter Illustration */}
                 {book.chapters[activeChapter].illustration && (
                     <div className="mb-8 rounded-lg overflow-hidden shadow-md">
                         <img 
@@ -92,7 +83,6 @@ export const BookViewer: React.FC<BookViewerProps> = ({ book, onReset }) => {
                     </div>
                 )}
                 
-                {/* Fallback decoration if no image */}
                 {!book.chapters[activeChapter].illustration && (
                     <div className="flex justify-center mb-8 text-slate-300">
                         <Quote className="w-8 h-8 opacity-20" />
@@ -114,7 +104,6 @@ export const BookViewer: React.FC<BookViewerProps> = ({ book, onReset }) => {
                     </ReactMarkdown>
                 </div>
 
-                {/* Footer Navigation within Reader */}
                 <div className="mt-16 pt-8 border-t border-slate-100 flex justify-between text-sm font-sans text-slate-500">
                    <button 
                      disabled={activeChapter === 0}
@@ -133,7 +122,6 @@ export const BookViewer: React.FC<BookViewerProps> = ({ book, onReset }) => {
                 </div>
             </div>
         </div>
-
       </div>
     </div>
   );
